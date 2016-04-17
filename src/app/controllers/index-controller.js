@@ -12,8 +12,6 @@ return function(ngModule){
     $scope.value = 10;
     $scope.params = $routeParams;
 
-    // Set initial values
-    $scope.options = {width: 500, height: 300};
     $scope.model = undefined;
 
     var doc = undefined;
@@ -79,7 +77,8 @@ return function(ngModule){
         function () {
           return $scope.model;
         },
-        function () {
+        function (changed) {
+          console.log("model change at controller: " + JSON.stringify(changed));
           serialize();
         },
         true

@@ -1,8 +1,7 @@
 define([
     'd3',
-    'app/directives/menu',
-    'app/directives/editable-text'
-], function (d3, menu, editableText) {
+    'app/directives/menu'
+], function (d3, menu) {
     'use strict';
 
     return function (ngModule) {
@@ -32,42 +31,26 @@ define([
 
                     menu.init(element[0]);
 
+                    var systemAttributes = [];
+
                     // D3 data
-                    var stack = d3.layout.stack()
-                        .offset("wiggle")
-                        .values(function(d) {
-                            return d.values;
-                        });
+                    function attributes(d){
+                        var index = 0;
+                        var initX = 50;
+                        var initY = 50;
+                        return d.reduce(function (currentArr, attribute) {
+                            currentArr.push({x:initX, y:initY, label:attribute.name, value:attribute.value, i:index});
+                            initY += 25;
+                            index ++;
+                            return currentArr;
+                        }, []);
+                    }
 
-                    var system = [
-                        {
-                            "name": "apples",
-                            "values": [
-                                { "x": 0, "y":  91},
-                                { "x": 1, "y": 290}
-                            ]
-                        },
-                        {
-                            "name": "oranges",
-                            "values": [
-                                { "x": 0, "y":  9},
-                                { "x": 1, "y": 49}
-                            ]
-                        }
-                    ];
-
+                    // Draw
                     var redraw = function(){
                         if (scope.model){
                             var rect = svg.append('g')
                                 .attr("id", 'rootGroup');
-
-                            rect.selectAll("rect")
-                                .data(stack(system))
-                                .enter()
-                                .append("rect")
-                                .attr("id", function(d) {
-                                    return d.name;
-                                });
 
                             rect.append("rect")
                                 .attr("id", 'root')
@@ -82,31 +65,50 @@ define([
                                     menu.show(this, scope) ;
                                 });
 
-                            rect.append("text")
+                            rect.selectAll("text")
+                                .data(systemAttributes)
+                                .enter()
+                                .append('text')
                                 .attr("class", "title")
-                                .attr("x", 40)
-                                .attr("y", 50)
-                                .text('Type:');
+                                .attr('x', function(d) {return d.x;})
+                                .attr('y', function(d) {return d.y;})
+                                .text(function(d) {return d.label;});
 
-                            rect.append("text")
-                                .attr("class", "title")
-                                .attr("x", 85)
-                                .attr("y", 50)
-                                .text(scope.model.type ? scope.model.type : '_______')
-                                .call(editableText.makeEditable, "type", scope);
+                            rect.selectAll("foreignObject")
+                                .data(systemAttributes)
+                                .enter()
+                                .append("foreignObject")
+                                .attr("x", function(d) {return d.x + 45;})
+                                .attr("y", function(d) {return d.y - 15;})
+                                .append("xhtml:form")
+                                .append("input")
+                                .attr("value", function (d) {
+                                    return d.value;
+                                })
+                                .attr("style", "width: 98px;")
+                                .on("blur", function (d) {
+                                    var value = this.value;
+                                    scope.$apply(function(m){
+                                        m.model.attributes[d.i].value = value;
+                                    });
+                                })
+                                .on("keypress", function (d) {
+                                    var value = this.value;
+                                    // IE fix
+                                    if (!d3.event) d3.event = window.event;
+                                    var e = d3.event;
+                                    if (e.keyCode == 13) {
+                                        if (typeof(e.cancelBubble) !== 'undefined') // IE
+                                            e.cancelBubble = true;
+                                        if (e.stopPropagation)
+                                            e.stopPropagation();
+                                        e.preventDefault();
 
-                            rect.append("text")
-                                .attr("class", "title")
-                                .attr("x", 40)
-                                .attr("y", 65)
-                                .text('Version:');
-
-                            rect.append("text")
-                                .attr("class", "title")
-                                .attr("x", 85)
-                                .attr("y", 65)
-                                .text(scope.model.version ? scope.model.version : '_______')
-                                .call(editableText.makeEditable, "version", scope);
+                                        scope.$apply(function(m){
+                                            m.model.attributes[d.i].value = value;
+                                        });
+                                    }
+                                });
 
                             if (scope.model.interfaces){
                                 for (var i = 0; i < scope.model.interfaces.length; i++){
@@ -138,7 +140,10 @@ define([
                             return scope.model;
                         },
                         function (changed) {
-                            console.log("model change: " + JSON.stringify(changed));
+                            console.log("model change at directive: " + JSON.stringify(changed));
+                            if (changed && changed.attributes){
+                                systemAttributes = attributes(changed.attributes);
+                            }
                             redraw();
                         },
                         true
