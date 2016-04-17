@@ -1,0 +1,31 @@
+{
+  "name": "sid-editor",
+  "version": "0.1.0",
+  "authors": [
+    "Paul Vitic <paul.vitic@gmail.com>"
+  ],
+  "description": "OGC SWE Sensor Interface Descriptor editor",
+  "main": "scripts/app.js",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "requirejs",
+    "d3"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "latest",
+    "angular-route": "latest",
+    "d3": "latest",
+    "requirejs": "latest",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
+}

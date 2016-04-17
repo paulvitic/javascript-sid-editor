@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sid="http://www.orangenkiste.de/SID/0.5.0"
+        xmlns:gml="http://www.opengis.net/gml/3.1.0" xmlns:swe="http://www.opengis.net/swe/1.1.0"
+        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.opengis.net/sensorML/1.1.0"
+        xsi:schemaLocation="http://www.opengis.net/sensorML/1.1.0 xsd/SID/sid.xsd" gml:id="Mitrack">
+    <identification>
+        <IdentifierList>
+            <identifier name="deviceType">
+                <Term definition="urn:vektor:def:identifier:vmp:deviceType">
+                    <value>MITRACK</value>
+                </Term>
+            </identifier>
+            <identifier name="deviceVersion">
+                <Term definition="urn:vektor:def:identifier:vmp:deviceVersion">
+                    <value>1.0</value>
+                </Term>
+            </identifier>
+        </IdentifierList>
+    </identification>
+    <interfaces>
+        <InterfaceList>
+            <interface name="connector1" xlink:role="urn:vektor:def:connection:TCP1">
+                <InterfaceDefinition>
+                    <presentationLayer>
+                        <sid:DataOutputStream>
+                            <sid:dataOutputComponents>
+                                <sid:ComponentList>
+                                    <sid:component name="data">
+                                        <swe:DataRecord>
+                                            <swe:field name="deviceId">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="event">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="date">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="time">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="latitude">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="longitude">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="speed">
+                                                <swe:Text/>
+                                            </swe:field>
+                                            <swe:field name="direction">
+                                                <swe:Text/>
+                                            </swe:field>
+                                        </swe:DataRecord>
+                                    </sid:component>
+                                </sid:ComponentList>
+                            </sid:dataOutputComponents>
+                        </sid:DataOutputStream>
+                    </presentationLayer>
+                    <physicalLayer>
+                        <sid:DataOutputStream>
+                            <sid:dataOutputComponents>
+                                <sid:ComponentList>
+                                    <sid:component name="geoloc">
+                                        <swe:DataBlockDefinition>
+                                            <swe:components name="rawdata">
+                                                <swe:DataRecord>
+                                                    <swe:field name="header"
+                                                               xlink:role="urn:ogc:def:encoding:assertedValue">
+                                                        <swe:Text>
+                                                            <swe:value>$MTR_GEOLOC</swe:value>
+                                                        </swe:Text>
+                                                    </swe:field>
+                                                    <swe:field name="packet_no">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="imei">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="event_type">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="date">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="time">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="latitude">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="longitude">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="speed">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="altitude">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="direction">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="gps_satelite_fix">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="digital_inputs">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="analogue_input_1">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="analogue_input_2">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="distance_between_packages">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="total_distance_travelled">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                </swe:DataRecord>
+                                            </swe:components>
+                                            <swe:encoding>
+                                                <swe:TextBlock tokenSeparator="[,;]" blockSeparator="(,#)"
+                                                               decimalSeparator="."/>
+                                            </swe:encoding>
+                                        </swe:DataBlockDefinition>
+                                    </sid:component>
+                                    <sid:component name="speed">
+                                        <swe:DataBlockDefinition>
+                                            <swe:components name="rawdata">
+                                                <swe:DataRecord>
+                                                    <swe:field name="header"
+                                                               xlink:role="urn:ogc:def:encoding:assertedValue">
+                                                        <swe:Text>
+                                                            <swe:value>$MTR_SPEED</swe:value>
+                                                        </swe:Text>
+                                                    </swe:field>
+                                                    <swe:field name="packet_no">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="imei">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="date">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="time">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="latitude">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="longitude">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="speed">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="altitude">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="direction">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="gps_satelite_fix">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="digital_inputs">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="analogue_input_1">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="analogue_input_2">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="max_speed">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                    <swe:field name="violation_duration">
+                                                        <swe:Text/>
+                                                    </swe:field>
+                                                </swe:DataRecord>
+                                            </swe:components>
+                                            <swe:encoding>
+                                                <swe:TextBlock tokenSeparator="[,;]" blockSeparator="(,#)"
+                                                               decimalSeparator="."/>
+                                            </swe:encoding>
+                                        </swe:DataBlockDefinition>
+                                    </sid:component>
+                                </sid:ComponentList>
+                            </sid:dataOutputComponents>
+                        </sid:DataOutputStream>
+                    </physicalLayer>
+                    <connections>
+                        <ConnectionList>
+                            <connection>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/imei"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/deviceId"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/event_type"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/event"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/date"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/date"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/time"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/time"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/latitude"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/latitude"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/longitude"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/longitude"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/speed"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/speed"/>
+                                </Link>
+                                <Link type="urn:ogc:def:link:OGC:sid">
+                                    <source ref="physicalLayer/dataOutputComponents/geoloc/rawdata/direction"/>
+                                    <destination ref="presentationLayer/dataOutputComponents/data/direction"/>
+                                </Link>
+                            </connection>
+                        </ConnectionList>
+                    </connections>
+                </InterfaceDefinition>
+            </interface>
+        </InterfaceList>
+    </interfaces>
+    <inputs>
+        <InputList></InputList>
+    </inputs>
+    <outputs>
+        <OutputList>
+            <output name="output">
+                <swe:DataRecord>
+                    <swe:field name="deviceId">
+                        <swe:Text definition="urn:phenomen:device:id"></swe:Text>
+                    </swe:field>
+                    <swe:field name="event">
+                        <swe:Text definition="urn:phenomen:device:event"></swe:Text>
+                    </swe:field>
+                    <swe:field name="date">
+                        <swe:Text definition="urn:phenomen:date"></swe:Text>
+                    </swe:field>
+                    <swe:field name="time">
+                        <swe:Text definition="urn:phenomen:time"></swe:Text>
+                    </swe:field>
+                    <swe:field name="latitude">
+                        <swe:Text definition="urn:phenomen:latitude"></swe:Text>
+                    </swe:field>
+                    <swe:field name="longitude">
+                        <swe:Text definition="urn:phenomen:longitude"></swe:Text>
+                    </swe:field>
+                    <swe:field name="speed">
+                        <swe:Text definition="urn:phenomen:speed"></swe:Text>
+                    </swe:field>
+                    <swe:field name="direction">
+                        <swe:Text definition="urn:phenomen:direction"></swe:Text>
+                    </swe:field>
+                </swe:DataRecord>
+            </output>
+        </OutputList>
+    </outputs>
+    <connections>
+        <ConnectionList>
+            <connection>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/deviceId"/>
+                    <destination ref="this/outputs/output/deviceId"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/event"/>
+                    <destination ref="this/outputs/output/event"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/date"/>
+                    <destination ref="this/outputs/output/date"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/time"/>
+                    <destination ref="this/outputs/output/time"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/latitude"/>
+                    <destination ref="this/outputs/output/latitude"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/longitude"/>
+                    <destination ref="this/outputs/output/longitude"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/speed"/>
+                    <destination ref="this/outputs/output/speed"/>
+                </Link>
+                <Link type="urn:ogc:def:link:OGC:sid">
+                    <source ref="this/interfaces/connector1/presentationLayer/dataOutputComponents/data/direction"/>
+                    <destination ref="this/outputs/output/direction"/>
+                </Link>
+            </connection>
+        </ConnectionList>
+    </connections>
+</System>
