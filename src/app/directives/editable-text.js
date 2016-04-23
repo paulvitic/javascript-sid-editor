@@ -2,6 +2,7 @@ define(['d3'], function (d3) {
 
     function makeEditable(d, field, scope) {
         //console.log("make_editable", arguments);
+        // TODO try with closure. Pass scope
 
         this.on("mouseover", function () {
                 d3.select(this).style("fill", "red");
