@@ -1,6 +1,7 @@
 define(['d3'], function (d3) {
 
     var content = function(elm){
+        var emptyValue = '__________';
         switch (elm.id){
             case 'canvas':
                 return [
@@ -13,11 +14,11 @@ define(['d3'], function (d3) {
                                         attributes:[
                                             {
                                                 name: 'Type',
-                                                value: ''
+                                                value: emptyValue
                                             },
                                             {
                                                 name: 'Version',
-                                                value: ''
+                                                value: emptyValue
                                             }
                                         ]
                                     };

@@ -1,7 +1,8 @@
 define([
     'd3',
-    'app/directives/menu'
-], function (d3, menu) {
+    'app/directives/menu',
+    'app/directives/editable-text'
+], function (d3, menu, editableText) {
     'use strict';
 
     return function (ngModule) {
@@ -46,6 +47,8 @@ define([
                         }, []);
                     }
 
+                    var makeEditable = editableText(scope);
+
                     // Draw
                     var redraw = function(){
                         if (scope.model){
@@ -65,50 +68,24 @@ define([
                                     menu.show(this, scope) ;
                                 });
 
-                            rect.selectAll("text")
+                            rect.selectAll("text.label")
                                 .data(systemAttributes)
                                 .enter()
                                 .append('text')
-                                .attr("class", "title")
+                                .attr("class", "label")
                                 .attr('x', function(d) {return d.x;})
                                 .attr('y', function(d) {return d.y;})
                                 .text(function(d) {return d.label;});
 
-                            rect.selectAll("foreignObject")
+                            rect.selectAll("text.value")
                                 .data(systemAttributes)
                                 .enter()
-                                .append("foreignObject")
-                                .attr("x", function(d) {return d.x + 45;})
-                                .attr("y", function(d) {return d.y - 15;})
-                                .append("xhtml:form")
-                                .append("input")
-                                .attr("value", function (d) {
-                                    return d.value;
-                                })
-                                .attr("style", "width: 98px;")
-                                .on("blur", function (d) {
-                                    var value = this.value;
-                                    scope.$apply(function(m){
-                                        m.model.attributes[d.i].value = value;
-                                    });
-                                })
-                                .on("keypress", function (d) {
-                                    var value = this.value;
-                                    // IE fix
-                                    if (!d3.event) d3.event = window.event;
-                                    var e = d3.event;
-                                    if (e.keyCode == 13) {
-                                        if (typeof(e.cancelBubble) !== 'undefined') // IE
-                                            e.cancelBubble = true;
-                                        if (e.stopPropagation)
-                                            e.stopPropagation();
-                                        e.preventDefault();
-
-                                        scope.$apply(function(m){
-                                            m.model.attributes[d.i].value = value;
-                                        });
-                                    }
-                                });
+                                .append('text')
+                                .attr("class", "value")
+                                .attr('x', function(d) {return d.x + 35;})
+                                .attr('y', function(d) {return d.y;})
+                                .text(function(d) {return d.value;})
+                                .call(makeEditable);
 
                             if (scope.model.interfaces){
                                 for (var i = 0; i < scope.model.interfaces.length; i++){
